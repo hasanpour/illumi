@@ -24,6 +24,7 @@ proguard/
 /*/out
 /*/*/build
 /*/*/production
+app/apk/
 captures/
 .navigation/
 *.ipr

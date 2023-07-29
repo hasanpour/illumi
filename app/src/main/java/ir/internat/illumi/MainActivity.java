@@ -30,14 +30,11 @@ public class MainActivity extends AppCompatActivity {
         Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         // check sensor available in devise. if available then get reading
         if (lightSensor == null) {
-            Toast.makeText(getApplicationContext(), "No Sensor",
+            Toast.makeText(getApplicationContext(), "No Light Sensor",
                     Toast.LENGTH_SHORT).show();
-            // Toast.makeText(AndroidLightSensorActivity.this,
-            // "No Light Sensor! quit-", Toast.LENGTH_LONG).show();
         } else {
             float max = lightSensor.getMaximumRange();
             progressBarLux.setMaxValues(max);
-            textViewLux.setText("Max Reading: " + String.valueOf(max));
 
             sensorManager.registerListener(lightSensorEventListener,
                     lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -49,18 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            // TODO Auto-generated method stub
         }
 
         // get sensor update and reading
         @Override
         public void onSensorChanged(SensorEvent event) {
-            // TODO Auto-generated method stub
             if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
-                float currentReading = event.values[0];
+                //float currentReading = event.values[0];
+                int currentReading = Math.round(event.values[0]);
                 progressBarLux.setCurrentValues(currentReading);
-                //textViewLux.setText("Current Reading: "
-                 //       + String.valueOf(currentReading) + " Lux");
+                if (currentReading <= 300)
+                {
+                    textViewLux.setText(getString(R.string.main_standard));
+                }
+                else if (currentReading > 300)
+                {
+                    textViewLux.setText(R.string.main_not_standard);
+                }
             }
         }
     };

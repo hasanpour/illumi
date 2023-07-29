@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Illumi</string>
+    <string name="main_standard">Standard</string>
+    <string name="main_not_standard">Not Standard</string>
 </resources>
